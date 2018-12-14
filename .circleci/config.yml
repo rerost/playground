@@ -9,6 +9,7 @@ jobs:
     working_directory: /go/src/github.com/rerost/playground
     steps:
       - checkout
+      - setup_remote_docker
       - run: docker build -t rerost/playground .
   release:
     docker:
