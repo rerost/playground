@@ -9,7 +9,7 @@ jobs:
     working_directory: /go/src/github.com/rerost/playground
     steps:
       - checkout
-      - run: make build
+      - run: make docker
   release:
     docker:
       - image: circleci/golang:1.11
@@ -21,9 +21,3 @@ jobs:
   build_and_test:
     jobs:
       - build
-      - release:
-          requires:
-            - build
-          filters:
-            branches:
-              only: master
