@@ -10,14 +10,15 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
-      - run: docker build -t rerost/playground .
+      - run: docker build -t rerost/playground:${git rev-parse HEAD} .
   release:
     docker:
       - image: circleci/golang:1.11
     working_directory: /go/src/github.com/rerost/playground
     steps:
       - checkout
-      - run: echo 'ok'
+      - run: docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
+      - run: docker push rerost/playground
 
 workflows:
   version: 2
