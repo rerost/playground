@@ -8,13 +8,15 @@ jobs:
       - image: circleci/golang:1.11.3
     working_directory: /go/src/github.com/rerost/playground
     steps:
-      - docker build -t rerost/playground .
+      - checkout
+      - run: docker build -t rerost/playground .
   release:
     docker:
       - image: circleci/golang:1.11
     working_directory: /go/src/github.com/rerost/playground
     steps:
-      - echo 'ok'
+      - checkout
+      - run: echo 'ok'
 
 workflows:
   version: 2
