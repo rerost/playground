@@ -41,7 +41,7 @@ func handleFmt(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			panic(err)
 		}
-		depInit := exec.Command("go", "get", ".")
+		depInit := exec.Command("go", "get", "./...")
 		if result, err := depInit.CombinedOutput(); err != nil {
 			fmt.Println(string(result))
 			// Ignore error. コンパイル時エラーがあるときに失敗するので
