@@ -32,5 +32,6 @@ workflows:
           context: docker push
       - release:
           context: docker push
-          branches:
-            only: master
+          filters:
+            branches:
+              only: master
