@@ -19,7 +19,7 @@ jobs:
       - checkout
       - setup_remote_docker
       - run: docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
-      - run: docker push rerost/playground
+      - run: docker push rerost/playground:`git rev-parse HEAD`
 
 workflows:
   version: 2
