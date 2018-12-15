@@ -1,4 +1,6 @@
 # rerost/playground
+[![CircleCI](https://circleci.com/gh/rerost/playground/tree/master.svg?style=svg)](https://circleci.com/gh/rerost/playground/tree/master)
+
 This Playground is a Playground that can specify the package of the third party. In addition, GCP-independent deployment is also possible as a data store.
 
 1. You can also use third party things like this
