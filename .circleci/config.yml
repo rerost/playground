@@ -13,6 +13,16 @@ jobs:
       - run: docker build -t rerost/playground:`git rev-parse HEAD` .
       - run: docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
       - run: docker push rerost/playground:`git rev-parse HEAD`
+  release:
+    docker:
+      - image: circleci/golang:1.11.3
+    working_directory: /go/src/github.com/rerost/playground
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run: docker build -t rerost/playground:latest .
+      - run: docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
+      - run: docker push rerost/playground:latest
 
 workflows:
   version: 2
@@ -20,3 +30,8 @@ workflows:
     jobs:
       - build:
           context: docker push
+      - release:
+          context: docker push
+          filters:
+            branches:
+              only: master
