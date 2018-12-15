@@ -29,5 +29,4 @@ workflows:
       - release:
           requires:
             - build
-          context:
-            - docker push
+          context: docker push
