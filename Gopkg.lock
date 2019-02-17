@@ -53,6 +53,14 @@
   version = "v2.0.0"
 
 [[projects]]
+  digest = "1:236d7e1bdb50d8f68559af37dbcf9d142d56b431c9b2176d41e2a009b664cda8"
+  name = "github.com/google/uuid"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "9b3b1e0f5f99ae461456d768e7d301a7acdaa2d8"
+  version = "v1.1.0"
+
+[[projects]]
   digest = "1:e04cc716992a302cacf6d726409a05aa9546241998b24356d6dd0f01bc5a374e"
   name = "github.com/googleapis/gax-go"
   packages = ["."]
@@ -263,6 +271,7 @@
     "cloud.google.com/go/datastore",
     "github.com/bradfitz/gomemcache/memcache",
     "github.com/gomodule/redigo/redis",
+    "github.com/google/uuid",
     "golang.org/x/tools/godoc/static",
     "golang.org/x/tools/imports",
   ]
