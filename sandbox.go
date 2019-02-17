@@ -30,6 +30,8 @@ import (
 	"strings"
 	"text/template"
 	"time"
+
+	"github.com/google/uuid"
 )
 
 const (
@@ -281,7 +283,7 @@ func main() {
 func compileAndRun(req *request) (*response, error) {
 	// TODO(andybons): Add semaphore to limit number of running programs at once.
 	gopath := os.Getenv("GOPATH")
-	tmpDir := filepath.Join(gopath, "src", "sandbox")
+	tmpDir := filepath.Join(gopath, "src", uuid.New().String())
 	err := exec.Command("mkdir", "-p", tmpDir).Run()
 	if err != nil {
 		return nil, fmt.Errorf("error creating temp dir %s: %v", tmpDir, err)
@@ -315,7 +317,7 @@ func compileAndRun(req *request) (*response, error) {
 	if err != nil {
 		panic(err)
 	}
-	depInit := exec.Command("go", "get", "./...")
+	depInit := exec.Command("go", "get", "-d", "./...")
 	if result, err := depInit.CombinedOutput(); err != nil {
 		fmt.Println(string(result))
 		// Ignore error. コンパイル時エラーがあるときに失敗するので

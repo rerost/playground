@@ -15,6 +15,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/google/uuid"
 	"golang.org/x/tools/imports"
 )
 
@@ -31,7 +32,7 @@ func handleFmt(w http.ResponseWriter, r *http.Request) {
 	)
 	if r.FormValue("imports") != "" {
 		gopath := os.Getenv("GOPATH")
-		tmpDir := filepath.Join(gopath, "src", "sandbox")
+		tmpDir := filepath.Join(gopath, "src", uuid.New().String())
 		err = exec.Command("mkdir", "-p", tmpDir).Run()
 		sourcePath := filepath.Join(tmpDir, "main.go")
 		ioutil.WriteFile(sourcePath, in, 0400)
@@ -41,7 +42,7 @@ func handleFmt(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			panic(err)
 		}
-		depInit := exec.Command("go", "get", "./...")
+		depInit := exec.Command("go", "get", "-d", "./...")
 		if result, err := depInit.CombinedOutput(); err != nil {
 			fmt.Println(string(result))
 			// Ignore error. コンパイル時エラーがあるときに失敗するので

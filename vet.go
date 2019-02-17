@@ -11,6 +11,8 @@ import (
 	"os/exec"
 	"path/filepath"
 	"strings"
+
+	"github.com/google/uuid"
 )
 
 // vetCheck runs the "vet" tool on the source code in req.Body.
@@ -18,7 +20,7 @@ import (
 // Otherwise &response.Errors contains found errors.
 func vetCheck(req *request) (*response, error) {
 	gopath := os.Getenv("GOPATH")
-	tmpDir := filepath.Join(gopath, "src", "sandbox1")
+	tmpDir := filepath.Join(gopath, "src", uuid.New().String())
 	err := exec.Command("mkdir", "-p", tmpDir).Run()
 	if err != nil {
 		fmt.Println(err)
@@ -36,7 +38,7 @@ func vetCheck(req *request) (*response, error) {
 	if err != nil {
 		panic(err)
 	}
-	depInit := exec.Command("go", "get", "./...")
+	depInit := exec.Command("go", "get", "-d", "./...")
 	if result, err := depInit.CombinedOutput(); err != nil {
 		fmt.Println(string(result))
 		// Ignore error. コンパイル時エラーがあるときに失敗するので
