@@ -59,7 +59,7 @@ func (s *server) init() {
 	s.mux.HandleFunc("/favicon.ico", handleFavicon)
 	s.mux.HandleFunc("/_ah/health", s.handleHealthCheck)
 
-	staticHandler := http.StripPrefix("/static/", http.FileServer(http.Dir("./static")))
+	staticHandler := http.StripPrefix("/static/", http.FileServer(http.Dir("/app/static")))
 	s.mux.Handle("/static/", staticHandler)
 }
 
@@ -70,7 +70,7 @@ func (s *server) handlePlaygroundJS(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleFavicon(w http.ResponseWriter, r *http.Request) {
-	http.ServeFile(w, r, "./static/favicon.ico")
+	http.ServeFile(w, r, "/app/static/favicon.ico")
 }
 
 func (s *server) handleHealthCheck(w http.ResponseWriter, r *http.Request) {
